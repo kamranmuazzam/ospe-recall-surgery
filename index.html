@@ -566,7 +566,7 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(regs => {
         for (const reg of regs) {
-          if (reg.scope.endsWith('/ospe-recall-surgery-p1/') || reg.scope.endsWith('/game/')) {
+          if (reg.scope.endsWith('/ospe-recall-surgery/') || reg.scope.endsWith('/ospe-recall-surgery-p1/') || reg.scope.endsWith('/game/')) {
             reg.unregister();
           }
         }

@@ -9,7 +9,7 @@ Curated and prepared originally by **Ashiqur Rahman Rakib (GSVMC-26)** / Rakib's
 ## 🌐 Live Web App
 
 The repository is configured with GitHub Pages at:
-**[https://kamranmuazzam.github.io/ospe-recall-surgery-p1/](https://kamranmuazzam.github.io/ospe-recall-surgery-p1/)**
+**[https://kamranmuazzam.github.io/ospe-recall-surgery/](https://kamranmuazzam.github.io/ospe-recall-surgery/)**
 
 From the main portal, students can launch either Paper-1 or Paper-2 and seamlessly switch between them using the top-bar navigation switcher.
 

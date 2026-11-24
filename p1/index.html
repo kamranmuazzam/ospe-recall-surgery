@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <title>OSPE Recall (Surgery Paper-1)</title>
+  <meta name="description" content="OSPE Recall (Surgery Paper-1) DU Final Prof MBBS active recall flashcards, rapid fire blitz arena, mindmap, and PYQ revision." />
+  <meta name="theme-color" content="#0284c7" />
+  <link rel="icon" type="image/png" href="rva_logo.png" />
+  <link rel="apple-touch-icon" href="rva_logo.png" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <div id="app-shell">
+    <!-- Persistent Top Header -->
+    <header class="app-header">
+      <div class="header-brand" role="button" tabindex="0" onclick="OSPE.navigate('dashboard')" title="Go to Dashboard">
+        <img id="rva-brand-logo" src="rva_logo.png" alt="RVA Brand Logo" class="brand-logo" />
+        <div class="brand-copy">
+          <div class="brand-title-row">
+            <span class="brand-title">OSPE Recall (Surgery Paper-1)</span>
+            <span class="brand-pill">DU FINAL PROF</span>
+          </div>
+          <div class="brand-credit">Active Recall &amp; Exam Simulator</div>
+        </div>
+      </div>
+
+      <div class="paper-nav-switcher" aria-label="Switch Surgery Paper">
+        <a href="../p1/" class="paper-switch-tab active" title="Currently in Surgery Paper-1 (General Surgery &amp; Ortho)">P1: Gen &amp; Ortho</a>
+        <a href="../p2/" class="paper-switch-tab" title="Switch to Surgery Paper-2 (Eye &amp; ENT)">P2: Eye &amp; ENT</a>
+        <a href="../" class="paper-switch-home" title="All Papers Portal">
+          <svg viewBox="0 0 24 24" class="nav-ico-sm"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </a>
+      </div>
+
+      <nav class="desktop-nav" aria-label="Main views">
+        <button class="nav-btn active" data-view="dashboard" onclick="OSPE.navigate('dashboard')">
+          <svg viewBox="0 0 24 24" class="nav-ico"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-btn" data-view="recall" onclick="OSPE.navigate('recall')">
+          <svg viewBox="0 0 24 24" class="nav-ico"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          <span>Active Recall</span>
+        </button>
+        <button class="nav-btn" data-view="rapidfire" onclick="OSPE.navigate('rapidfire')">
+          <svg viewBox="0 0 24 24" class="nav-ico"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <span>Rapid Fire</span>
+        </button>
+        <button class="nav-btn" data-view="mindmap" onclick="OSPE.navigate('mindmap')">
+          <svg viewBox="0 0 24 24" class="nav-ico"><path d="M12 2a3 3 0 0 1 3 3c0 1.3-.84 2.4-2 2.82V10h3.5A2.5 2.5 0 0 1 19 12.5v1.68A3 3 0 1 1 17 17v-1.5a.5.5 0 0 0-.5-.5H13v2.18A3 3 0 1 1 11 17v-2H7.5a.5.5 0 0 0-.5.5V17a3 3 0 1 1-2-2.82V12.5A2.5 2.5 0 0 1 7.5 10H11V7.82A3.001 3.001 0 0 1 12 2z"/></svg>
+          <span>Mindmap</span>
+        </button>
+        <button class="nav-btn" data-view="directory" onclick="OSPE.navigate('directory')">
+          <svg viewBox="0 0 24 24" class="nav-ico"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/></svg>
+          <span>Revision</span>
+        </button>
+      </nav>
+
+      <div class="header-actions">
+        <div class="xp-chip" id="header-rank-pill" title="Current Rank & XP">
+          <span class="xp-rank-dot"></span>
+          <span id="hdr-rank-name">Surgical Clerk</span>
+          <strong id="hdr-xp">0 XP</strong>
+        </div>
+        <button class="icon-btn" id="btn-mute" onclick="OSPE.toggleMute()" title="Toggle Sound Chimes" aria-label="Toggle Sound">
+          <svg id="ico-sound-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+          <svg id="ico-sound-off" viewBox="0 0 24 24" class="hidden"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+        </button>
+        <button class="icon-btn" id="btn-theme" onclick="OSPE.toggleTheme()" title="Switch Light / Obsidian Theme" aria-label="Toggle Theme">
+          <svg id="ico-moon" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+          <svg id="ico-sun" viewBox="0 0 24 24" class="hidden"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Viewports -->
+    <main class="app-main">
+      <!-- ==================== VIEW 1: DASHBOARD ==================== -->
+      <section id="view-dashboard" class="view active">
+        <div class="container">
+          <!-- Hero Progression & Readiness Strip -->
+          <div class="dash-hero">
+            <div class="rank-card card-surface">
+              <div class="dr-identity-bar" id="dash-doctor-bar"></div>
+              <div class="rank-top">
+                <div>
+                  <span class="eyebrow">ACTIVE RECALL RANKING</span>
+                  <h1 id="dash-rank-title">Level 1 — Surgical Clerk</h1>
+                  <p id="dash-rank-sub" class="muted">Review cards, pass Rapid Fire quizzes, and conquer Tier-1 DU Surgery PYQ Locks.</p>
+                </div>
+                <div class="streak-box">
+                  <div class="streak-val" id="dash-streak">0</div>
+                  <div class="streak-lbl">Day Streak</div>
+                </div>
+              </div>
+              <div class="xp-progress-wrap">
+                <div class="xp-progress-meta">
+                  <span id="dash-xp-cur">0 XP</span>
+                  <span id="dash-xp-next">150 XP to OT Extern</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" id="dash-xp-bar" style="width: 0%"></div>
+                </div>
+              </div>
+              <div class="hero-quick-actions">
+                <button class="btn btn-primary" onclick="OSPE.startQuickMode('tier1')">Drill Tier-1 Locks</button>
+                <button class="btn btn-outline-accent" onclick="OSPE.startQuickMode('mock10')">10-Station Mock Exam</button>
+                <button class="btn btn-outline-accent" onclick="OSPE.openYearWiseRevision()">Year-Wise PYQ (2026–2015)</button>
+                <button class="btn btn-outline-accent" onclick="OSPE.openStationStudy('ST-01')">Station Study Pack</button>
+                <button class="btn btn-soft-red" onclick="OSPE.startQuickMode('weak')">Drill Weak (F)</button>
+                <button class="btn btn-soft" onclick="OSPE.navigate('rapidfire')">&#9889; Blitz Tournament Arena</button>
+              </div>
+            </div>
+
+            <div class="readiness-card card-surface">
+              <div class="readiness-head">
+                <div>
+                  <span class="eyebrow">DU EXAM READINESS</span>
+                  <h2 id="dash-tier1-pct">0%</h2>
+                  <p class="muted" id="dash-tier1-sub">Tier-1 Locks Mastered (0 / 0)</p>
+                </div>
+                <div class="ring-wrap" title="Overall Mastery">
+                  <svg class="dash-ring" viewBox="0 0 80 80">
+                    <circle class="ring-bg" cx="40" cy="40" r="34"></circle>
+                    <circle class="ring-fg" id="dash-overall-ring" cx="40" cy="40" r="34"></circle>
+                  </svg>
+                  <span class="ring-label" id="dash-overall-pct">0%</span>
+                </div>
+              </div>
+              <div class="dom-stat-grid">
+                <div class="dom-stat stat-tr" onclick="OSPE.startQuickMode('tr')" title="Practice TR Cards">
+                  <span class="stat-num" id="stat-tr-cnt">0</span>
+                  <span class="stat-lbl">Strong (TR)</span>
+                </div>
+                <div class="dom-stat stat-pr" onclick="OSPE.startQuickMode('pr')" title="Practice PR Cards">
+                  <span class="stat-num" id="stat-pr-cnt">0</span>
+                  <span class="stat-lbl">Fair (PR)</span>
+                </div>
+                <div class="dom-stat stat-f" onclick="OSPE.startQuickMode('weak')" title="Practice F Cards">
+                  <span class="stat-num" id="stat-f-cnt">0</span>
+                  <span class="stat-lbl">Weak (F)</span>
+                </div>
+                <div class="dom-stat stat-new" onclick="OSPE.startQuickMode('new')" title="Practice Unseen Cards">
+                  <span class="stat-num" id="stat-new-cnt">0</span>
+                  <span class="stat-lbl">Unseen</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Heatmap & Mastery Badges -->
+          <div class="dash-mid-grid">
+            <div class="card-surface heatmap-card">
+              <div class="card-section-head">
+                <div>
+                  <h3>28-Day Clinical Consistency</h3>
+                  <span class="muted small">Daily card ratings & Rapid Fire rounds completed</span>
+                </div>
+                <span class="badge-chip" id="dash-total-reps">0 Total Reps</span>
+              </div>
+              <div id="dash-heatmap" class="heatmap-grid" aria-label="28 day activity heatmap"></div>
+            </div>
+
+            <div class="card-surface badges-card">
+              <div class="card-section-head">
+                <div>
+                  <h3>Merit Badges</h3>
+                  <span class="muted small">Unlock milestones across Stations 01–10</span>
+                </div>
+                <span class="badge-chip" id="dash-badge-count">0 / 8</span>
+              </div>
+              <div id="dash-badges" class="badges-grid"></div>
+            </div>
+          </div>
+
+          <!-- 10-Station Command Grid -->
+          <div class="section-header-row">
+            <div>
+              <h2>DU Surgery Paper-I OSPE Station Architecture (ST-01 to ST-10)</h2>
+              <p class="muted small">10 Stations × 6 Marks (60 Marks Total) · General Surgery &amp; Orthopaedics · Tap any station to launch Active Recall</p>
+            </div>
+          </div>
+          <div id="dash-stations-grid" class="stations-grid"></div>
+
+          <!-- Progress Backup & Portability -->
+          <div class="card-surface backup-bar">
+            <div>
+              <strong>Offline Progress Backup</strong>
+              <p class="muted small">100% stored locally on your device. Export JSON regularly or transfer progress between WebView APK and Desktop HTML.</p>
+            </div>
+            <div class="backup-actions">
+              <button class="btn btn-soft" onclick="OSPE.exportData()">Export JSON</button>
+              <button class="btn btn-soft" onclick="OSPE.triggerImport()">Import JSON</button>
+              <button class="btn btn-soft-red" onclick="OSPE.askReset()">Reset Progress</button>
+              <input type="file" id="import-file-input" accept=".json,application/json" class="hidden" onchange="OSPE.handleImportFile(event)" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 2: ACTIVE RECALL ==================== -->
+      <section id="view-recall" class="view">
+        <div class="container recall-container">
+          <!-- Controls Toolbar -->
+          <div class="toolbar card-surface">
+            <div class="toolbar-group">
+              <select id="recall-station-select" class="input-select" onchange="OSPE.applyRecallFilter()">
+                <option value="ALL">All 10 Stations</option>
+              </select>
+              <select id="recall-tier-select" class="input-select" onchange="OSPE.applyRecallFilter()">
+                <option value="ALL">All Priorities</option>
+                <option value="TIER-1">Tier-1 Locks Only</option>
+                <option value="PYQ">PYQ Verified Only</option>
+                <option value="STAR">Starred Only</option>
+                <option value="F">Weak (Dominant F)</option>
+                <option value="PR">Fair (Dominant PR)</option>
+                <option value="TR">Strong (Dominant TR)</option>
+                <option value="NEW">Unseen Only</option>
+              </select>
+            </div>
+            <div class="toolbar-group">
+              <div class="segmented-control">
+                <button class="seg-btn active" id="mode-seq" onclick="OSPE.setRecallMode('seq')">Topic Order</button>
+                <button class="seg-btn" id="mode-rand" onclick="OSPE.setRecallMode('rand')">Random</button>
+                <button class="seg-btn" id="mode-mock" onclick="OSPE.setRecallMode('mock')">10-St Mock</button>
+              </div>
+            </div>
+            <div class="toolbar-timer-box">
+              <div class="timer-ring-box" title="5-Minute OSPE Station Timer (auto-flips card at 00:00)">
+                <svg class="timer-svg" viewBox="0 0 44 44">
+                  <circle class="timer-bg" cx="22" cy="22" r="18"></circle>
+                  <circle class="timer-fg" id="recall-timer-circle" cx="22" cy="22" r="18"></circle>
+                </svg>
+                <span id="recall-timer-text" class="timer-text">05:00</span>
+              </div>
+              <button class="icon-btn-sm" id="btn-timer-toggle" onclick="OSPE.toggleTimer()" title="Pause/Resume Timer">Pause</button>
+              <button class="icon-btn-sm" onclick="OSPE.resetTimer()" title="Reset 5:00 Timer">Reset</button>
+            </div>
+          </div>
+
+          <!-- Deck Position Bar -->
+          <div class="deck-status-bar">
+            <div class="deck-pos">
+              <button class="btn btn-sm btn-soft" onclick="OSPE.prevCard()">&larr; Prev</button>
+              <span id="recall-counter" class="counter-pill">1 / 130</span>
+              <button class="btn btn-sm btn-soft" onclick="OSPE.nextCard(true)">Proceed to Next &rarr;</button>
+            </div>
+            <div class="deck-summary muted small" id="recall-deck-hint">Tap image to zoom · Space to flip · 1(F) 2(PR) 3(TR)</div>
+          </div>
+
+          <!-- 3D Flashcard Stage -->
+          <div id="recall-empty-state" class="card-surface empty-state hidden">
+            <h3>No cards match this filter</h3>
+            <p class="muted">Try switching the priority or station filter back to "All" to drill cards.</p>
+            <button class="btn btn-primary" onclick="OSPE.resetRecallFilters()">Show All 130 Cards</button>
+          </div>
+
+          <div id="recall-card-stage" class="recall-stage">
+            <div id="recall-card-inner" class="recall-card-inner dom-new">
+              <!-- FRONT FACE (Question / Visual Prompt) -->
+              <div class="recall-face recall-front card-surface">
+                <div class="card-top-meta">
+                  <div class="meta-badges" id="front-badges"></div>
+                  <div class="meta-right">
+                    <span class="dom-badge" id="front-dom-badge">NEW</span>
+                    <button class="star-btn" id="front-star-btn" onclick="OSPE.toggleCurrentStar(event)" title="Bookmark / PYQ Star">&#9733;</button>
+                  </div>
+                </div>
+
+                <div class="recall-front-grid">
+                  <div class="recall-media-panel">
+                    <div class="img-zoom-wrapper" onclick="OSPE.openLightboxForCurrent('front')">
+                      <img id="front-card-img" src="" alt="OSPE Clinical Prompt" />
+                      <span class="zoom-hint-pill">Tap Image to Zoom</span>
+                    </div>
+                  </div>
+                  <div class="recall-prompt-panel">
+                    <div class="station-subhead" id="front-station-title">ST-01 · Chest X-Rays</div>
+                    <p class="scenario-text" id="front-scenario"></p>
+                    <div class="questions-box">
+                      <div class="questions-title">OSPE Questions (6 Marks):</div>
+                      <ol id="front-questions-list" class="questions-list"></ol>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-action-footer">
+                  <button class="btn btn-soft" onclick="OSPE.nextCard(true)">Proceed to Next (Skip Rating)</button>
+                  <button class="btn btn-primary btn-lg" onclick="OSPE.flipCard(true)">Reveal DU Answer &rarr;</button>
+                </div>
+              </div>
+
+              <!-- BACK FACE (Solution / Rating) -->
+              <div class="recall-face recall-back card-surface">
+                <div class="card-top-meta back-head-meta">
+                  <div>
+                    <span class="eyebrow" id="back-station-eyebrow">ST-01 SOLUTION</span>
+                    <h2 id="back-diagnosis" class="back-dx-title"></h2>
+                  </div>
+                  <div class="meta-right">
+                    <span class="dom-badge" id="back-dom-badge">NEW</span>
+                    <button class="star-btn" id="back-star-btn" onclick="OSPE.toggleCurrentStar(event)" title="Bookmark / PYQ Star">&#9733;</button>
+                    <button class="btn btn-sm btn-soft" onclick="OSPE.flipCard(false)">&larr; Question</button>
+                  </div>
+                </div>
+
+                <div class="back-content-scroll">
+                  <div id="back-images-row" class="back-images-row">
+                    <div class="mini-thumb-box" onclick="OSPE.openLightboxForCurrent('front')">
+                      <img id="back-front-thumb" src="" alt="Front Prompt Thumb" />
+                      <span>Station Prompt (Zoom)</span>
+                    </div>
+                    <div id="back-annotated-box" class="mini-thumb-box hidden" onclick="OSPE.openLightboxForCurrent('back')">
+                      <img id="back-extra-thumb" src="" alt="Annotated Reference Diagram" />
+                      <span>Annotated Breakdown (Zoom)</span>
+                    </div>
+                  </div>
+
+                  <div id="back-answers-list" class="answers-grid"></div>
+
+                  <div class="pearl-callout" id="back-pearl-box">
+                    <div class="pearl-label">DU EXAMINER PEARL</div>
+                    <div id="back-pearl-text"></div>
+                  </div>
+                </div>
+
+                <div class="rating-dock">
+                  <div class="rating-dock-label">
+                    <span>Rate Recall Mastery:</span>
+                    <span id="back-history-counts" class="muted small">TR: 0 · PR: 0 · F: 0</span>
+                  </div>
+                  <div class="rating-buttons-row">
+                    <button class="rate-btn rate-f" onclick="OSPE.rateCurrentCard('F')">
+                      <strong>F · Weak</strong>
+                      <small>+10 XP</small>
+                    </button>
+                    <button class="rate-btn rate-pr" onclick="OSPE.rateCurrentCard('PR')">
+                      <strong>PR · Fair</strong>
+                      <small>+20 XP</small>
+                    </button>
+                    <button class="rate-btn rate-tr" onclick="OSPE.rateCurrentCard('TR')">
+                      <strong>TR · Strong</strong>
+                      <small>+35 XP</small>
+                    </button>
+                    <button class="rate-btn rate-skip" onclick="OSPE.nextCard(true)">
+                      <strong>Next (Skip)</strong>
+                      <small>No Log &rarr;</small>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 3: 30s BLITZ TOURNAMENT ARENA ==================== -->
+      <section id="view-rapidfire" class="view">
+        <div class="container rf-container">
+          <!-- Blitz Arena Callsign, Hall & Trophy Strip -->
+          <div class="card-surface arena-banner">
+            <div class="arena-identity-col">
+              <div class="arena-id-row">
+                <span class="eyebrow" style="margin:0;">BLITZ EXAM ARENA CALLSIGN</span>
+                <span class="arena-id-pill" id="arena-id-badge">Scalpel-0000</span>
+                <span class="arena-hall-badge" id="arena-hall-badge">🏰 Hall 1: Ward Tent</span>
+              </div>
+              <div class="small muted">Auto-generated anonymous ID for the Blitz Exam Leaderboard &amp; Surgical Hall progression.</div>
+            </div>
+            <div class="arena-metrics-row">
+              <div class="arena-metric"><strong id="arena-trophies-val">0 🏆</strong><span>Trophies</span></div>
+              <div class="arena-metric"><strong id="arena-acc-val">0%</strong><span>Career Acc</span></div>
+              <div class="arena-metric"><strong id="arena-rounds-val">0</strong><span>Rounds</span></div>
+            </div>
+          </div>
+
+          <div class="arena-subtabs">
+            <div class="segmented-control">
+              <button class="seg-btn active" id="arena-tab-exam" onclick="OSPE.setArenaTab('exam')">&#9889; 30s Blitz Exam</button>
+              <button class="seg-btn" id="arena-tab-halls" onclick="OSPE.setArenaTab('halls')">&#127984; Surgical Halls (1–10)</button>
+              <button class="seg-btn" id="arena-tab-board" onclick="OSPE.setArenaTab('board')">&#127942; Leaderboard</button>
+            </div>
+            <span class="badge-chip" id="arena-pool-pill">447+ Viva &amp; OSPE MCQs</span>
+          </div>
+
+          <div id="blitz-exam-panel">
+            <div class="toolbar card-surface">
+              <div class="toolbar-group">
+                <select id="rf-station-select" class="input-select">
+                  <option value="ALL">All Stations Mix</option>
+                </select>
+                <select id="rf-focus-select" class="input-select">
+                  <option value="ALL">All Questions (447+)</option>
+                  <option value="HIGH_YIELD">Tier-1 &amp; Tier-2 Focus</option>
+                  <option value="INST_VIVA">Instruments &amp; Viva Focus</option>
+                </select>
+                <select id="rf-count-select" class="input-select">
+                  <option value="10">10 Questions</option>
+                  <option value="15">15 Questions</option>
+                  <option value="20" selected>20 Questions</option>
+                  <option value="30">30 Questions</option>
+                  <option value="ALL">Marathon (All)</option>
+                </select>
+                <label class="toggle-chip">
+                  <input type="checkbox" id="rf-blitz-timer" checked />
+                  <span>30s Blitz Timer</span>
+                </label>
+              </div>
+              <button class="btn btn-primary" onclick="OSPE.startRapidFire()">Start Blitz Round</button>
+            </div>
+
+            <div id="rf-arena-card" class="card-surface rf-stage">
+              <div class="rf-hud">
+                <span class="counter-pill" id="rf-progress-pill">Q 1 / 20</span>
+                <span class="rf-score-pill" id="rf-score-pill">Score: 0 · Streak: 0</span>
+                <span class="rf-timer-pill" id="rf-timer-pill">30s</span>
+              </div>
+
+              <div class="rf-body-grid">
+                <div class="rf-img-col" onclick="OSPE.openLightboxForRapidFire()">
+                  <img id="rf-img" src="" alt="Visual MCQ Stimulus" />
+                  <span class="zoom-hint-pill">Tap to Inspect Image</span>
+                </div>
+                <div class="rf-q-col">
+                  <div class="rf-meta-line">
+                    <span class="badge-chip" id="rf-card-station">ST-01</span>
+                    <span class="muted small" id="rf-card-hint"></span>
+                  </div>
+                  <h2 id="rf-question-text" class="rf-question"></h2>
+                  <div id="rf-options-list" class="rf-options"></div>
+                  <div id="rf-feedback-box" class="rf-feedback hidden"></div>
+                  <div class="rf-footer-actions">
+                    <button class="btn btn-soft" id="rf-skip-btn" onclick="OSPE.skipRapidFire()">Skip (No Score)</button>
+                    <button class="btn btn-primary hidden" id="rf-next-btn" onclick="OSPE.nextRapidFire()">Next Question &rarr;</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="rf-summary-card" class="card-surface rf-summary hidden">
+              <span class="eyebrow">BLITZ TOURNAMENT COMPLETE</span>
+              <h2 id="rf-sum-title">Round Summary</h2>
+              <div class="rf-sum-stats">
+                <div class="sum-box"><strong id="rf-sum-acc">0%</strong><span>Accuracy</span></div>
+                <div class="sum-box"><strong id="rf-sum-correct">0 / 0</strong><span>Correct / Wrong</span></div>
+                <div class="sum-box"><strong id="rf-sum-xp">+0 XP</strong><span>Earned XP</span></div>
+              </div>
+              <div class="rf-sum-trophy-row" id="rf-sum-trophy-msg">+0 Trophies · Hall 1</div>
+              <div class="rf-sum-actions">
+                <button class="btn btn-primary" onclick="OSPE.startRapidFire()">Play Another Round</button>
+                <button class="btn btn-outline-accent" onclick="OSPE.setArenaTab('board')">View Leaderboard</button>
+                <button class="btn btn-soft-red" id="rf-review-missed-btn" onclick="OSPE.reviewRapidFireMissed()">Review Missed Cards</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="blitz-halls-panel" class="hidden">
+            <div class="card-surface lb-panel" style="margin-bottom:12px;">
+              <div class="lb-head">
+                <div>
+                  <h3 style="margin:0;">Surgical Hall Progression (Clash of OSPE)</h3>
+                  <span class="muted small">Earn trophies in 30s Blitz Exam rounds to unlock all 10 Halls &amp; honorary surgical titles — even solo offline!</span>
+                </div>
+                <span class="arena-hall-badge" id="halls-progress-summary">0 / 1800 🏆</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" id="halls-progress-bar" style="width:0%"></div></div>
+            </div>
+            <div id="blitz-halls-grid" class="hall-grid"></div>
+          </div>
+
+          <div id="blitz-leaderboard-panel" class="hidden">
+            <div class="card-surface lb-panel">
+              <div class="lb-head">
+                <div>
+                  <h3 style="margin:0;">&#127942; Surgery Paper-1 Blitz Leaderboard</h3>
+                  <span class="muted small" id="lb-status-text">Comparing your anonymous callsign against global Blitz challengers</span>
+                </div>
+                <button class="btn btn-sm btn-soft" onclick="OSPE.refreshLeaderboard()">Refresh Live Board</button>
+              </div>
+              <div style="overflow-x:auto;">
+                <table class="lb-table">
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Anonymous Callsign</th>
+                      <th>Surgical Hall</th>
+                      <th>Best Acc</th>
+                      <th>Rounds</th>
+                      <th>Trophies</th>
+                    </tr>
+                  </thead>
+                  <tbody id="lb-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 4: INTERACTIVE MINDMAP ==================== -->
+      <section id="view-mindmap" class="view">
+        <div class="mindmap-toolbar card-surface">
+          <div class="mm-mode-pills">
+            <button class="seg-btn active" id="mm-mode-global" onclick="OSPE.setMindmapMode('global')">Global All-10-Stations</button>
+            <button class="seg-btn" id="mm-mode-station" onclick="OSPE.setMindmapMode('station')">Station Deep-Dive</button>
+          </div>
+          <div id="mm-station-pills" class="mm-station-strip"></div>
+          <div class="mm-zoom-controls">
+            <button class="btn btn-sm btn-soft" onclick="OSPE.zoomMindmap(-0.15)" title="Zoom Out">-</button>
+            <span id="mm-zoom-pct" class="small muted">100%</span>
+            <button class="btn btn-sm btn-soft" onclick="OSPE.zoomMindmap(0.15)" title="Zoom In">+</button>
+            <button class="btn btn-sm btn-soft" onclick="OSPE.fitMindmap()" title="Fit to Screen">Fit</button>
+          </div>
+        </div>
+
+        <div id="mindmap-viewport" class="mindmap-viewport">
+          <div id="mindmap-canvas" class="mindmap-canvas">
+            <svg id="mindmap-svg-lines" class="mindmap-svg"></svg>
+            <div id="mindmap-nodes-layer" class="mindmap-nodes"></div>
+          </div>
+          <div class="mindmap-legend">
+            <span>Drag background to pan · Scroll/Pinch to zoom · Tap any card to Flip &amp; Rate in-place</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 5: REVISION DIRECTORY, STUDY PACK & YEAR-WISE ARCHIVE ==================== -->
+      <section id="view-directory" class="view">
+        <div class="container">
+          <div class="toolbar card-surface dir-toolbar">
+            <div class="dir-scope-row">
+              <div class="segmented-control">
+                <button class="seg-btn active" id="dir-scope-topic" onclick="OSPE.setDirectoryScope('topic')">By Station / Topic (130)</button>
+                <button class="seg-btn" id="dir-scope-study" onclick="OSPE.setDirectoryScope('study')">Station Study Pack</button>
+                <button class="seg-btn" id="dir-scope-year" onclick="OSPE.setDirectoryScope('yearwise')">Year-Wise PYQ (2026–2015)</button>
+              </div>
+              <div class="segmented-control" id="dir-mode-group">
+                <button class="seg-btn active" id="dir-mode-rev" onclick="OSPE.setDirectoryMode('revision')">Revision Mode (Open)</button>
+                <button class="seg-btn" id="dir-mode-exam" onclick="OSPE.setDirectoryMode('exam')">Exam Mode (Masked)</button>
+              </div>
+            </div>
+            <div class="dir-filter-row">
+              <input type="search" id="dir-search-input" class="input-search" placeholder="Search diagnosis, DU PYQ year, instrument, suture, or pearl..." oninput="OSPE.renderDirectory()" />
+              <select id="dir-station-select" class="input-select" onchange="OSPE.renderDirectory()">
+                <option value="ALL">All Stations</option>
+              </select>
+              <select id="dir-status-select" class="input-select" onchange="OSPE.renderDirectory()">
+                <option value="ALL">All Statuses</option>
+                <option value="TIER1">Tier-1 Locks Only</option>
+                <option value="TIER2">Tier-2 Topics Only</option>
+                <option value="STAR">Starred</option>
+                <option value="F">Weak (F)</option>
+                <option value="PR">Fair (PR)</option>
+                <option value="TR">Strong (TR)</option>
+                <option value="NEW">Unseen</option>
+              </select>
+              <select id="yw-subject-select" class="input-select hidden" onchange="OSPE.renderDirectory()">
+                <option value="ALL">All 10 Stations</option>
+                <option value="Plain X-ray">Plain X-ray</option>
+                <option value="Contrast X-ray">Contrast X-ray</option>
+                <option value="Orthopaedic X-ray">Orthopaedic X-ray</option>
+                <option value="Surgical Specimen">Surgical Specimens</option>
+                <option value="Instruments">Surgical Instruments</option>
+                <option value="Appliances I">Appliances I (Tubes/Airways)</option>
+                <option value="Appliances II">Appliances II (Sutures/Bandages)</option>
+                <option value="Clinical Scenario">Clinical Scenarios</option>
+                <option value="Clinical Photo">Clinical Photos</option>
+                <option value="Procedure Station">Procedure Checklists</option>
+              </select>
+              <button id="yw-toggle-all-btn" class="btn btn-sm btn-soft hidden" onclick="OSPE.toggleRevealAllYearWise()">Reveal All Answers</button>
+            </div>
+            <div id="yw-year-pills" class="yw-year-pills hidden"></div>
+            <div id="study-station-pills" class="study-station-pills hidden"></div>
+          </div>
+          <div class="dir-count-row muted small" id="dir-count-label">Showing 130 topics</div>
+          <div id="dir-grid" class="dir-grid"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+      <button class="mnav-btn active" data-view="dashboard" onclick="OSPE.navigate('dashboard')">
+        <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+        <span>Home</span>
+      </button>
+      <button class="mnav-btn" data-view="recall" onclick="OSPE.navigate('recall')">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        <span>Recall</span>
+      </button>
+      <button class="mnav-btn" data-view="rapidfire" onclick="OSPE.navigate('rapidfire')">
+        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <span>Blitz</span>
+      </button>
+      <button class="mnav-btn" data-view="mindmap" onclick="OSPE.navigate('mindmap')">
+        <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3c0 1.3-.84 2.4-2 2.82V10h3.5A2.5 2.5 0 0 1 19 12.5v1.68A3 3 0 1 1 17 17v-1.5a.5.5 0 0 0-.5-.5H13v2.18A3 3 0 1 1 11 17v-2H7.5a.5.5 0 0 0-.5.5V17a3 3 0 1 1-2-2.82V12.5A2.5 2.5 0 0 1 7.5 10H11V7.82A3.001 3.001 0 0 1 12 2z"/></svg>
+        <span>Map</span>
+      </button>
+      <button class="mnav-btn" data-view="directory" onclick="OSPE.navigate('directory')">
+        <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/></svg>
+        <span>Revision</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Lightbox Image Modal -->
+  <div id="lightbox-modal" class="modal-backdrop hidden" onclick="if(event.target===this)OSPE.closeLightbox()">
+    <div class="lightbox-shell">
+      <div class="lightbox-header">
+        <div id="lb-title" class="lb-title">Clinical Image</div>
+        <div class="lb-controls">
+          <button class="btn btn-sm btn-soft hidden" id="lb-toggle-side" onclick="OSPE.toggleLightboxSide()">View Annotated Back</button>
+          <button class="btn btn-sm btn-soft" onclick="OSPE.zoomLightbox(0.3)">Zoom +</button>
+          <button class="btn btn-sm btn-soft" onclick="OSPE.zoomLightbox(-0.3)">Zoom -</button>
+          <button class="btn btn-sm btn-soft" onclick="OSPE.resetLightboxZoom()">Reset</button>
+          <button class="btn btn-sm btn-soft-red" onclick="OSPE.closeLightbox()">Close</button>
+        </div>
+      </div>
+      <div class="lightbox-canvas" id="lb-canvas">
+        <img id="lb-img" src="" alt="High Resolution Clinical View" draggable="false" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Rank-Up & Confirm / Export Text Modal -->
+  <div id="dialog-modal" class="modal-backdrop hidden" onclick="if(event.target===this)OSPE.closeDialog()">
+    <div class="dialog-card card-surface">
+      <span class="eyebrow" id="dlg-eyebrow">NOTIFICATION</span>
+      <h2 id="dlg-title">Title</h2>
+      <p id="dlg-body" class="muted"></p>
+      <textarea id="dlg-textarea" class="dlg-textarea hidden" readonly></textarea>
+      <div class="dlg-actions" id="dlg-actions"></div>
+    </div>
+  </div>
+
+  <!-- Welcome Aspiring Doctor Modal -->
+  <div id="welcome-modal" class="modal-backdrop hidden">
+    <div class="dialog-card card-surface welcome-card">
+      <div class="welcome-top-badge">
+        <span class="eyebrow">FINAL PROF SURGERY PAPER-1</span>
+      </div>
+      <h2 class="welcome-heading">Welcome, Aspiring Doctor</h2>
+      <p class="welcome-sub muted">Every station you master brings you one step closer to wearing the title for real.</p>
+
+      <div class="dr-input-group">
+        <span class="dr-prefix-badge">(Dr.)</span>
+        <input id="welcome-name-input" type="text" maxlength="28" placeholder="Type your name..." autocomplete="name" oninput="OSPE.updateWelcomePreview()" onkeydown="if(event.key==='Enter')OSPE.saveWelcomeProfile()" />
+      </div>
+
+      <div class="welcome-preview-row">
+        <span class="muted small">Your Badge:</span>
+        <span id="welcome-live-preview" class="welcome-preview-pill"><span class="dr-brackets">(Dr.)</span> Aspiring Surgeon</span>
+      </div>
+      <div class="welcome-preview-row" style="margin-top:-6px;">
+        <span class="muted small">Leaderboard ID:</span>
+        <span id="welcome-arena-id" class="arena-id-pill">Scalpel-0000</span>
+      </div>
+
+      <div class="welcome-bracket-note">
+        Keep the brackets around <strong>(Dr.)</strong> as your daily promise through Final Prof. Your auto-generated anonymous Leaderboard ID (above) tracks your rank &amp; Surgical Halls in the <strong>30s Blitz Exam Arena</strong>!
+      </div>
+
+      <div class="dlg-actions">
+        <button class="btn btn-soft" onclick="OSPE.skipWelcomeProfile()">Continue Later</button>
+        <button class="btn btn-primary" onclick="OSPE.saveWelcomeProfile()">Start as (Dr.)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Doctor Title Unlock Celebration Modal -->
+  <div id="dr-unlock-modal" class="modal-backdrop hidden" onclick="if(event.target===this)OSPE.closeDrUnlockModal()">
+    <div class="dialog-card card-surface dr-celebrate-card">
+      <div class="dr-crest-icon">&#127891;</div>
+      <span class="eyebrow">MILESTONE UNLOCKED · OFFICIAL TITLE</span>
+      <div class="dr-transform-stage" id="dr-unlock-transform">
+        <span class="dr-old-tag">(Dr.)</span>
+        <span class="dr-arrow">&rarr;</span>
+        <span class="dr-new-tag">Dr. Doctor</span>
+      </div>
+      <h2 id="dr-unlock-headline">Congratulations, Doctor!</h2>
+      <p id="dr-unlock-message" class="dr-motivate-copy">
+        Every sleepless night, every ward round, every flashcard you conquered led right to this moment. The brackets are gone forever — wear your white coat and healed lives with pride!
+      </p>
+      <div class="dr-signature muted small">&mdash; Final Prof Surgery Paper-1</div>
+      <div class="dlg-actions dr-celebrate-actions">
+        <button class="btn btn-primary" onclick="OSPE.closeDrUnlockModal()">Accept My Title &rarr;</button>
+        <button class="btn btn-soft" onclick="OSPE.undoDoctorTitle()">Clicked by mistake? Undo &amp; keep (Dr.)</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="confetti-layer" class="confetti-layer hidden" aria-hidden="true"></div>
+  <div id="toast-bar" class="toast-bar hidden"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
